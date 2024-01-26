@@ -5,10 +5,11 @@ import SearchRecipe from '../components/SearchRecipe'
 import Recipes from '../components/Recipes'
 
 const Home = () => {
+  const [recipes, setRecipes] = useState([]);
   return (
     <Box>
       <HeroBanner />
-      <SearchRecipe />
+      <SearchRecipe setRecipes={setRecipes} />
       <Recipes />
     </Box>
   )
