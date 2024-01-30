@@ -6,11 +6,12 @@ import Recipes from '../components/Recipes'
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
+  const [cuisine, setCuisine] = useState('all');
   return (
     <Box>
       <HeroBanner />
-      <SearchRecipe setRecipes={setRecipes} />
-      <Recipes />
+      <SearchRecipe setRecipes={setRecipes} cuisine={cuisine} setCuisine={setCuisine}/>
+      <Recipes recipes={recipes} setRecipes={setRecipes} cuisine={cuisine} />
     </Box>
   )
 }

@@ -2,7 +2,7 @@ export const recipeOptions = {
     method: 'GET',
     headers: {
         'X-RapidAPI-Key': '489d6caaddmshf356c9aa224e3dfp16fbccjsna5c42e96daf0',
-        'X-RapidAPI-Host': 'low-carb-recipes.p.rapidapi.com'
+        'X-RapidAPI-Host': 'all-in-one-recipe-api.p.rapidapi.com'
       }
 }
 
