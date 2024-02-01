@@ -1,11 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
+import Details from '../components/Details';
+import RecipeVideos from '../components/RecipeVideos';
+import { fetchData, recipeOptions, youtubeOptions } from '../utils/fetchData';
+import axios from 'axios';
 
 const RecipeDetail = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const [recipeDetail, setRecipeDetail] = useState({});
+  const [recipeVideos, setRecipeVideos] = useState([]);
+  const [recipeImage, setRecipeImage] = useState('');
+  const { id } = useParams(); // Destructure id directly
+  // console.log(id)
+  useEffect(() => {
+    const fetchRecipeData = async () => {
+      try {
+        const recipeDetailData = await fetchData(`https://all-in-one-recipe-api.p.rapidapi.com/details/${id}`, recipeOptions);
+        setRecipeDetail(recipeDetailData.recipe);
 
-export default RecipeDetail
+        const recipeVideoData = await fetchData(`https://youtube-search-and-download.p.rapidapi.com/search?query=${recipeDetailData.Data.Name} recipe`, youtubeOptions);
+        setRecipeVideos(recipeVideoData);
+      } catch (error) {
+        console.error('Error fetching recipe details:', error);
+      }
+    };
+
+    fetchRecipeData();
+    console.log(recipeDetail)
+  }, [id]);
+  useEffect(() => {
+    const fetchRecipeImage = async () => {
+      try {
+        const response = await axios.get('https://real-time-image-search.p.rapidapi.com/search', {
+          params: {
+            query: recipeDetail.Name,
+          },
+          headers: {
+            'X-RapidAPI-Key': '0072b00d01mshf43674982c0aa50p15b915jsnb7b15a2259ee',
+            'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
+          }
+        });
+        
+        // Assuming the API response has an array of images and you want the first one
+        const imageUrl = response.data.data && response.data.data.length > 0
+          ? response.data.data[0].url
+          : '...';
+        setRecipeImage(imageUrl);
+        
+      } catch (error) {
+        console.error('Error fetching recipe image:', error);
+        // Set a default image or handle the error in another way
+        setRecipeImage(''); // Set a default image or handle the error in another way
+      }
+    };
+
+    fetchRecipeImage();
+  }, [recipeDetail.Name]);
+  return (
+    <Box>
+      <Details recipeDetail={recipeDetail} recipeImage={recipeImage} />
+      <RecipeVideos recipeVideos={recipeVideos} />
+    </Box>
+  );
+};
+
+export default RecipeDetail;

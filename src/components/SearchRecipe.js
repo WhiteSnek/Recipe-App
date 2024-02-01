@@ -13,7 +13,7 @@ const SearchRecipe = ({ setRecipes, cuisine, setCuisine }) => {
             // this will give the array in the object ie cuisines
             const cuisineDataArray = cuisineData.cuisines.data;
             // updates the value of cuisines to new array
-            console.log(cuisineDataArray)
+            // console.log(cuisineDataArray)
             setCuisines(cuisineDataArray);
 
         }
@@ -26,8 +26,10 @@ const SearchRecipe = ({ setRecipes, cuisine, setCuisine }) => {
             const recipeData = await fetchData(`https://all-in-one-recipe-api.p.rapidapi.com/search/${search}`, recipeOptions);
             window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' })
             setSearch('');
-            console.log(recipeData)
-            setRecipes(recipeData);
+            const recipeDataObj = recipeData.recipes.data;
+            const recipeDataArray = recipeDataObj.map(recipe => recipe.name);
+            
+            setRecipes(recipeDataArray);
         }
     }
     return (
