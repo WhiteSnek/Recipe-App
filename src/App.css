@@ -51,8 +51,8 @@ body {
 }
 
 .detail-image {
-    width: 729px;
-    height: 742px;
+    width: 500px;
+    height: 500px;
 }
 
 .hero-banner-img {
@@ -104,7 +104,7 @@ body {
     flex-direction: column;
     gap: 24px;
     width: 387px;
-    height: 381px;
+    height: 400px;
     text-decoration: none;
 }
 

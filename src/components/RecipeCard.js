@@ -34,7 +34,7 @@ const RecipeCard = ({ recipe, id }) => {
 
     fetchRecipeImage();
   }, [recipe]);
-  console.log(id)
+  // console.log(id)
   return (
     <Link className="exercise-card" to={`/recipe/${id}`}>
       <img src={recipeImage} alt={recipe} loading="lazy" style={{borderRadius: '20px', padding:'20px'}}/>

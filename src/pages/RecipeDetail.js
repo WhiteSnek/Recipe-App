@@ -5,6 +5,7 @@ import Details from '../components/Details';
 import RecipeVideos from '../components/RecipeVideos';
 import { fetchData, recipeOptions, youtubeOptions } from '../utils/fetchData';
 import axios from 'axios';
+import SimilarRecipe from '../components/SimilarRecipe';
 
 const RecipeDetail = () => {
   const [recipeDetail, setRecipeDetail] = useState({});
@@ -16,17 +17,18 @@ const RecipeDetail = () => {
     const fetchRecipeData = async () => {
       try {
         const recipeDetailData = await fetchData(`https://all-in-one-recipe-api.p.rapidapi.com/details/${id}`, recipeOptions);
-        setRecipeDetail(recipeDetailData.recipe);
-
-        const recipeVideoData = await fetchData(`https://youtube-search-and-download.p.rapidapi.com/search?query=${recipeDetailData.Data.Name} recipe`, youtubeOptions);
-        setRecipeVideos(recipeVideoData);
+        setRecipeDetail(recipeDetailData.recipe.data);
+        
+        const recipeVideoData = await fetchData(`https://youtube-search-and-download.p.rapidapi.com/search?query=${recipeDetailData.recipe.data.Name} recipe`, youtubeOptions);
+        // console.log(recipeVideoData.contents)
+        setRecipeVideos(recipeVideoData.contents);
       } catch (error) {
         console.error('Error fetching recipe details:', error);
       }
     };
 
     fetchRecipeData();
-    console.log(recipeDetail)
+    // console.log(recipeDetail)
   }, [id]);
   useEffect(() => {
     const fetchRecipeImage = async () => {
@@ -36,7 +38,7 @@ const RecipeDetail = () => {
             query: recipeDetail.Name,
           },
           headers: {
-            'X-RapidAPI-Key': '0072b00d01mshf43674982c0aa50p15b915jsnb7b15a2259ee',
+            'X-RapidAPI-Key': '295f8cb924mshcdca73cfafe2396p1a8b26jsn134f3c7cd0a4',
             'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
           }
         });
@@ -59,7 +61,7 @@ const RecipeDetail = () => {
   return (
     <Box>
       <Details recipeDetail={recipeDetail} recipeImage={recipeImage} />
-      <RecipeVideos recipeVideos={recipeVideos} />
+      <RecipeVideos recipeVideos={recipeVideos} name={recipeDetail.Name} />
     </Box>
   );
 };
