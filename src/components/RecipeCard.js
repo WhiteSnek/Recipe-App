@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Stack, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import axios from 'axios';
 
 const RecipeCard = ({ recipe, id }) => {
@@ -14,7 +14,7 @@ const RecipeCard = ({ recipe, id }) => {
             query: recipe,
           },
           headers: {
-            'X-RapidAPI-Key': '0072b00d01mshf43674982c0aa50p15b915jsnb7b15a2259ee',
+            'X-RapidAPI-Key': 'b60d0223eemsh9c18175293dcb1bp1f74efjsnfb0912c41235',
             'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
           }
         });
@@ -38,14 +38,6 @@ const RecipeCard = ({ recipe, id }) => {
   return (
     <Link className="exercise-card" to={`/recipe/${id}`}>
       <img src={recipeImage} alt={recipe} loading="lazy" style={{borderRadius: '20px', padding:'20px'}}/>
-      <Stack direction="row">
-        <Button sx={{ ml: '21px', color: '#fff', background: '#FFA9A9', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize' }}>
-          {recipe}
-        </Button>
-        <Button sx={{ ml: '21px', color: '#fff', background: '#FCC757', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize' }}>
-          {recipe}
-        </Button>
-      </Stack>
       <Typography ml="21px" color="#000" fontWeight="bold" sx={{ fontSize: { lg: '24px', xs: '20px' } }} mt="11px" pb="10px" textTransform="capitalize">
         {recipe}
       </Typography>

@@ -1,8 +1,20 @@
 import React from 'react'
 import {Stack, Typography} from '@mui/material'
-import Icon from '../assets/icons/logo.png'
+import indian from '../assets/images/indian.jpg'
+import japanese from '../assets/images/japanese.jpg'
+import greek from '../assets/images/greek.jpg'
+import jewish from '../assets/images/jewish.jpg'
+import indonesian from '../assets/images/indonesian.jpg'
+import israeli from '../assets/images/israeli.jpg'
+import italian from '../assets/images/italian.jpg'
+import jamaican from '../assets/images/jamaican.jpeg'
+import korean from '../assets/images/korean.jpg'
+import lebanese from '../assets/images/lebanese.jpg'
 
-const Cuisine = ({item, setCuisine, cuisine}) => {
+const cuisineImages = { greek, indian, indonesian, israeli, italian, jamaican, japanese, jewish, korean, lebanese}
+
+const Cuisine = ({item, setCuisine, cuisine, image}) => {
+  const cuisineImage = cuisineImages[item] || null;
   return (
     <Stack
     type="button"
@@ -14,7 +26,7 @@ const Cuisine = ({item, setCuisine, cuisine}) => {
       setCuisine(item);
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
     }}>
-      <img src={Icon} alt="cuisine" style={{width: '80px', height: '80px'}}/>
+      <img src={cuisineImage} alt={item} style={{width: '150px', height: '150px', borderRadius: '20px'}}/>
       <Typography fontSize="24px" fontWeight="bold" color="#3A1212" textTransform="capitalize">{item?item:'Null'}</Typography>
     </Stack>
   )

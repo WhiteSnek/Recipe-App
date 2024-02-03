@@ -34,7 +34,7 @@ const HorizontalScrollBar = ({data,cuisine,setCuisine, isCuisine}) => {
           title={item}
           itemId ={item}
           m="0 40px">
-            <Cuisine item={item} setCuisine={setCuisine} cuisine={cuisine} />
+            <Cuisine item={item} setCuisine={setCuisine} cuisine={cuisine} image={item}/>
         </Box>)
       )}
     </ScrollMenu>

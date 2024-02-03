@@ -5,7 +5,6 @@ import Details from '../components/Details';
 import RecipeVideos from '../components/RecipeVideos';
 import { fetchData, recipeOptions, youtubeOptions } from '../utils/fetchData';
 import axios from 'axios';
-import SimilarRecipe from '../components/SimilarRecipe';
 
 const RecipeDetail = () => {
   const [recipeDetail, setRecipeDetail] = useState({});
@@ -38,8 +37,8 @@ const RecipeDetail = () => {
             query: recipeDetail.Name,
           },
           headers: {
-            'X-RapidAPI-Key': '295f8cb924mshcdca73cfafe2396p1a8b26jsn134f3c7cd0a4',
-            'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
+            'X-RapidAPI-Key': 'b60d0223eemsh9c18175293dcb1bp1f74efjsnfb0912c41235',
+    'X-RapidAPI-Host': 'real-time-image-search.p.rapidapi.com'
           }
         });
         

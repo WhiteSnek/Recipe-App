@@ -1,14 +1,16 @@
 import React from 'react';
 import { Typography, Stack, Button } from '@mui/material';
-import Icon from '../assets/icons/logo.png';
+import Protiens from '../assets/icons/protiens.png';
+import Carbs from '../assets/icons/carbs.png';
+import Fats from '../assets/icons/fats.png';
 
 const Details = ({ recipeDetail, recipeImage }) => {
-    const { Name, Description, Time, Ingredients, Nutritions, Rating, Category, Cuisine } = recipeDetail;
+    const { Name, Description, Ingredients, Nutritions, Rating, Category, Cuisine } = recipeDetail;
 
     const extraDetail = [
-        { icon: Icon, name: Nutritions[0] },
-        { icon: Icon, name: Nutritions[1] },
-        { icon: Icon, name: Nutritions[2] }
+        { icon: Fats, name: Nutritions[0] },
+        { icon: Carbs, name: Nutritions[1] },
+        { icon: Protiens, name: Nutritions[2] }
     ];
 
     return (

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Box, Stack, Typography } from '@mui/material';
-import { recipeOptions, fetchData, googleOptions } from '../utils/fetchData';
+import { recipeOptions, fetchData } from '../utils/fetchData';
 import RecipeCard from './RecipeCard';
+import Loader from './Loader'
 
 const Recipes = ({ recipes, setRecipes, cuisine }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [recipePerPage] = useState(1);
+  const [recipePerPage] = useState(6);
 
   useEffect(() => {
     const fetchRecipeData = async () => {
@@ -17,18 +18,23 @@ const Recipes = ({ recipes, setRecipes, cuisine }) => {
           'https://all-in-one-recipe-api.p.rapidapi.com/categories',
           recipeOptions
         );
-        let categoriesArray = response.categories.data.slice(0,2);
-        console.log(categoriesArray)
+        let categoriesArray = response.categories.data.slice(0,3);
+        // console.log(categoriesArray)
         categoriesArray.map((category) => {
           const fetchCategoryData = async () => {
             recipeData = await fetchData(
               `https://all-in-one-recipe-api.p.rapidapi.com/categories/${category}`,
               recipeOptions
             );
-            recipeDataArray = recipeData.categories.data.slice(0,2);
-            console.log(recipeDataArray[0])
+            let recipeDataObj = recipeData.categories.data.slice(0,6);
+            recipeDataArray = recipeDataObj
+          .filter(obj => obj !== null)
+          .map(recipeDataObj => Object.values(recipeDataObj));
+            // console.log(recipeDataArray)
+            setRecipes(recipeDataArray)
           }
           fetchCategoryData();
+          
         })
       } else {
         recipeData = await fetchData(
@@ -57,6 +63,7 @@ const Recipes = ({ recipes, setRecipes, cuisine }) => {
     setCurrentPage(value);
     window.scrollTo({ top: 1800, behavior: 'smooth' })
   }
+  if (!currentRecipes.length) return <Loader />;
   return (
     <Box id="recipes" sx={{ mt: { lg: '109px' } }} mt="50px" p="20px">
       <Typography variant="h4" fontWeight="bold" sx={{ fontSize: { lg: '44px', xs: '30px' } }} mb="46px">Showing Results</Typography>
